@@ -8,7 +8,6 @@ const checker = (event) => {
   const password = document.getElementById("password").value;
 
   if (username === "admin" && password === "admin123") {
-    alert("Success!!");
     window.location.href = "./issueList.html";
   } else {
     alert("Credential Error");
