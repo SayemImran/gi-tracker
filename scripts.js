@@ -1,3 +1,4 @@
+// Login feature
 const checker = (event) => {
   event.preventDefault();
   const username = document.getElementById("username").value;
