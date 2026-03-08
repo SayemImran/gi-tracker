@@ -41,6 +41,17 @@
         <button class="btn btn-primary">+ New issue</button>
       </div>
     </nav>
+    <section class="max-w-10/12 mx-auto mt-15">
+      <div class="p-5 rounded-lg bg-white">
+        <button class="btn btn-primary bg-transparent text-gray-500 border-gray-300 shadow-none" id="btn-all" onclick="displayIssue()">All</button>
+        <button class="btn btn-primary bg-transparent text-gray-500 border-gray-300 shadow-none">Open</button>
+        <button class="btn btn-primary bg-transparent text-gray-500 border-gray-300 shadow-none">Closed</button>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 bg-gray-100 p-3" id="issue-container">
+      </div>
+      <div id="search-results" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-5"></div>
+      <div></div>
+    </section>
     <script src="./scripts.js"></script>
   </body>
 </html>
