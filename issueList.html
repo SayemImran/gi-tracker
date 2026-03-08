@@ -4,24 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
     <link
       href="https://cdn.jsdelivr.net/npm/daisyui@5"
       rel="stylesheet"
       type="text/css"
     />
-    <title>Document</title>
+    <title>GitHub Issues Tracker</title>
   </head>
   <body class="bg-gray-200 min-h-screen">
-    <nav class="flex justify-between pl-10 pr-10 pt-3 pb-3 bg-white">
-      <div class="flex items-center gap-1">
+    <!-- Navbar -->
+    <nav
+      class="flex flex-wrap justify-between items-center px-4 md:px-10 py-3 bg-white gap-3"
+    >
+      <div class="flex items-center gap-2">
         <img src="./assets/github-logo.png" height="40" width="40" alt="" />
-        <h1 class="font-bold text-2xl">GitHub Issues Tracker</h1>
+        <h1 class="font-bold text-lg md:text-2xl">GitHub Issues Tracker</h1>
       </div>
-      <div class="flex gap-1">
-        <label class="input">
+      <div class="flex items-center gap-2 w-full md:w-auto">
+        <label class="input flex items-center gap-2 flex-1 md:flex-none">
           <svg
-            class="h-[1em] opacity-50"
+            class="h-[1em] opacity-50 shrink-0"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
           >
@@ -36,22 +42,101 @@
               <path d="m21 21-4.3-4.3"></path>
             </g>
           </svg>
-          <input type="search" required placeholder="Search issues..." id="issue-search"/>
+          <input
+            type="search"
+            required
+            placeholder="Search issues..."
+            id="issue-search"
+            class="w-full md:w-56"
+          />
         </label>
-        <button class="btn btn-primary">+ New issue</button>
+        <button class="btn btn-primary whitespace-nowrap text-sm md:text-base">
+          + New issue
+        </button>
       </div>
     </nav>
+
+    <!-- Main -->
     <section class="max-w-10/12 mx-auto mt-15">
-      <div class="p-5 rounded-lg bg-white">
-        <button class="btn btn-primary bg-transparent text-gray-500 border-gray-300 shadow-none" id="btn-all">All</button>
-        <button class="btn btn-primary bg-transparent text-gray-500 border-gray-300 shadow-none" id="btn-open">Open</button>
-        <button class="btn btn-primary bg-transparent text-gray-500 border-gray-300 shadow-none" id="btn-closed">Closed</button>
+      <div class="p-5 rounded-lg bg-white mb-3">
+        <button
+          class="btn btn-primary bg-transparent text-gray-500 border-gray-300 shadow-none"
+          id="btn-all"
+        >
+          All
+        </button>
+        <button
+          class="btn btn-primary bg-transparent text-gray-500 border-gray-300 shadow-none"
+          id="btn-open"
+        >
+          Open
+        </button>
+        <button
+          class="btn btn-primary bg-transparent text-gray-500 border-gray-300 shadow-none"
+          id="btn-closed"
+        >
+          Closed
+        </button>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 bg-gray-100 p-3" id="issue-container">
+
+      <!-- Issue count bar -->
+      <div
+        class="flex items-center justify-between bg-white rounded-xl px-6 py-4 shadow-sm mb-3"
+      >
+        <div class="flex items-center gap-4">
+          <div
+            class="w-12 h-12 bg-violet-100 rounded-full flex items-center justify-center"
+          >
+            <img
+              src="./assets/Aperture.png"
+              alt="Issues icon"
+              class="w-7 h-7"
+            />
+          </div>
+          <div>
+            <p class="text-lg font-bold text-gray-900" id="total-issue-count">
+              Loading...
+            </p>
+            <p class="text-sm text-violet-400">
+              Track and manage your project issues
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-5 text-sm font-medium text-gray-600">
+          <span class="flex items-center gap-1.5">
+            <span
+              class="w-2.5 h-2.5 rounded-full bg-green-500 inline-block"
+            ></span>
+            Open
+          </span>
+          <span class="flex items-center gap-1.5">
+            <span
+              class="w-2.5 h-2.5 rounded-full bg-violet-500 inline-block"
+            ></span>
+            Closed
+          </span>
+        </div>
       </div>
-      <div id="search-results" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-5"></div>
-      <div></div>
+
+      <!-- Issue cards grid -->
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 bg-gray-100 p-3"
+        id="issue-container"
+      ></div>
     </section>
+
+    <!-- Issue Detail Modal -->
+    <div
+      id="issue-modal"
+      class="hidden fixed inset-0 z-50 items-center justify-center bg-black/50 backdrop-blur-sm px-4"
+    >
+      <div
+        class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto transition-all duration-200 scale-100"
+      >
+        <div class="p-6" id="modal-content"></div>
+      </div>
+    </div>
+
     <script src="./scripts.js"></script>
   </body>
 </html>
