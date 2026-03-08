@@ -1,7 +1,6 @@
-
 let allIssues = [];
+let activeFilter = "all"; // track current status filter
 
-// Login feature
 const checker = (event) => {
   event.preventDefault();
   const username = document.getElementById("username").value;
@@ -15,6 +14,7 @@ const checker = (event) => {
   }
 };
 
+// Map of priority styles
 const priorityClasses = {
   low: "text-gray-500 bg-gray-100",
   medium: "text-yellow-600 bg-yellow-100",
@@ -79,7 +79,7 @@ const renderIssues = (issues) => {
                 (label) =>
                   `<span class="px-3 py-1 text-xs ${labelClasses[label] || labelClasses.default} rounded-full text-center">
                     ${label.toUpperCase()}
-                  </span>`
+                  </span>`,
               )
               .join("")}
           </div>
@@ -95,65 +95,104 @@ const renderIssues = (issues) => {
   });
 };
 
-const filterIssues = (query) => {
-  const lower = query.toLowerCase().trim();
-  if (!lower) return allIssues;
+// Apply both status filter and search query together
+const applyFilters = () => {
+  const searchInput = document.getElementById("issue-search");
+  const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
 
-  return allIssues.filter((issue) => {
-    return (
-      issue.title?.toLowerCase().includes(lower) ||
-      issue.description?.toLowerCase().includes(lower) ||
-      issue.author?.toLowerCase().includes(lower) ||
-      issue.priority?.toLowerCase().includes(lower) ||
-      issue.status?.toLowerCase().includes(lower) ||
-      issue.labels?.some((label) => label.toLowerCase().includes(lower))
-    );
+  let filtered = allIssues;
+
+  // Apply status filter first
+  if (activeFilter !== "all") {
+    filtered = filtered.filter((issue) => issue.status === activeFilter);
+  }
+
+  // Then apply search query on top
+  if (query) {
+    filtered = filtered.filter((issue) => {
+      return (
+        issue.title?.toLowerCase().includes(query) ||
+        issue.description?.toLowerCase().includes(query) ||
+        issue.author?.toLowerCase().includes(query) ||
+        issue.priority?.toLowerCase().includes(query) ||
+        issue.status?.toLowerCase().includes(query) ||
+        issue.labels?.some((label) => label.toLowerCase().includes(query))
+      );
+    });
+  }
+
+  renderIssues(filtered);
+};
+
+// Update active button styles
+const setActiveButton = (activeId) => {
+  const buttons = ["btn-all", "btn-open", "btn-closed"];
+  buttons.forEach((id) => {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    if (id === activeId) {
+      btn.classList.remove(
+        "bg-transparent",
+        "text-gray-500",
+        "border-gray-300",
+        "shadow-none",
+      );
+      btn.classList.add("bg-primary", "text-white", "border-primary");
+    } else {
+      btn.classList.add(
+        "bg-transparent",
+        "text-gray-500",
+        "border-gray-300",
+        "shadow-none",
+      );
+      btn.classList.remove("bg-primary", "text-white", "border-primary");
+    }
   });
 };
 
-const displayIssue = (filterStatus = null) => {
+const displayIssue = () => {
   const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
 
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
       allIssues = data.data;
-
-      let filtered = allIssues;
-      if (filterStatus) {
-        filtered = allIssues.filter((i) => i.status === filterStatus);
-      }
-
-      renderIssues(filtered);
-
-      // Re-apply any active search query after fetching
-      const searchInput = document.getElementById("issue-search");
-      if (searchInput && searchInput.value.trim()) {
-        renderIssues(filterIssues(searchInput.value));
-      }
+      applyFilters();
     })
-    // .catch((err) => console.error("Error fetching issues:", err));
+    .catch((err) => console.error("Error fetching issues:", err));
 };
 
-// Wire up search input
 document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("issue-search");
 
+  // Search input listener
   if (searchInput) {
-    searchInput.addEventListener("input", (e) => {
-      const query = e.target.value;
-      renderIssues(filterIssues(query));
-    });
+    searchInput.addEventListener("input", () => applyFilters());
   }
 
-  // Wire up filter buttons
-  const btnAll = document.getElementById("btn-all");
-  if (btnAll) {
-    btnAll.addEventListener("click", () => {
-      renderIssues(allIssues);
-      if (searchInput) searchInput.value = "";
-    });
-  }
+  // All button
+  document.getElementById("btn-all")?.addEventListener("click", () => {
+    activeFilter = "all";
+    setActiveButton("btn-all");
+    applyFilters();
+  });
+
+  // Open button
+  document.getElementById("btn-open")?.addEventListener("click", () => {
+    activeFilter = "open";
+    setActiveButton("btn-open");
+    applyFilters();
+  });
+
+  // Closed button
+  document.getElementById("btn-closed")?.addEventListener("click", () => {
+    activeFilter = "closed";
+    setActiveButton("btn-closed");
+    applyFilters();
+  });
+
+  // Set default active button
+  setActiveButton("btn-all");
 });
 
 displayIssue();
