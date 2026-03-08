@@ -6,7 +6,7 @@ const checker = (event) => {
 
   if (username === "admin" && password === "admin123") {
     alert("Success!!");
-    window.location.href = "./apiPage.html";
+    window.location.href = "./issueList.html";
   } else {
     alert("Credential Error");
   }

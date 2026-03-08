@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <title>GitHub Issue Tracker</title>
+  </head>
+  <body class="bg-gray-200 min-h-screen">
+    <nav class="flex justify-between pl-10 pr-10 pt-3 pb-3 bg-white">
+      <div class="flex items-center gap-1">
+        <img src="./assets/github-logo.png" height="40" width="40" alt="" />
+        <h1 class="font-bold text-2xl">GitHub Issues Tracker</h1>
+      </div>
+      <div class="flex gap-1">
+        <label class="input">
+          <svg
+            class="h-[1em] opacity-50"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+          >
+            <g
+              stroke-linejoin="round"
+              stroke-linecap="round"
+              stroke-width="2.5"
+              fill="none"
+              stroke="currentColor"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </g>
+          </svg>
+          <input type="search" required placeholder="Search issues..." id="issue-search"/>
+        </label>
+        <button class="btn btn-primary">+ New issue</button>
+      </div>
+    </nav>
+    <script src="./scripts.js"></script>
+  </body>
+</html>
