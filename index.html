@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <title>Login Page</title>
+  </head>
+  <body class="max-w-full min-h-screen bg-gray-200 pt-10">
+
+    <section
+      class="max-w-sm mx-auto min-h-[450px] bg-white p-5 rounded-md"
+    >
+      <div class="flex flex-col jusotiify-center items-center">
+        <div><img src="./assets/github-logo.png" alt="logo" srcset="" /></div>
+        <div>
+          <h1 class="text-center font-bold text-2xl">Github Issues Tracker</h1>
+          <p class="text-center text-sm text-gray-500">Sign in to manage your issues</p>
+        </div>
+      </div>
+      <div class="mt-3">
+        <form action="" class="flex flex-col justify-center gap-2" onsubmit="checker(event)">
+          <label for="username" class="font-semibold">Username</label>
+          <input
+            id="username"
+            type="text"
+            placeholder="Enter Username"
+            name="username"
+            class="border-1 border-gray-200 px-3 py-1 rounded-md"
+          />
+          <p class="text-xs text-primary font-semibold">Default: admin</p>
+          <label for="password" class="font-semibold">Password</label>
+          <input
+            id="password"
+            type="password"
+            placeholder="Enter Password"
+            name="password"
+            class="border-1 border-gray-200 px-3 py-1 rounded-md"
+          />
+          <p class="text-xs text-primary font-semibold mb-5">Default: admin123</p>
+          <button type="submit" class="btn btn-primary">Sign in</button>
+        </form>
+        <div class="rise-4 divider mb-5">OR</div>
+        <div>
+            <p class="text-sm text-gray-400 text-center mb-3">Demo Credentials:</p>
+            <div class="bg-gray-100 p-3 rounded-md flex flex-col justify-center items-center">
+                <p><span class="font-semibold">Username: </span>admin</p>
+                <p><span class="font-semibold">Password: </span>admin123</p>
+            </div>
+            
+        </div>
+      </div>
+    </section>
+    <script src="./scripts.js"></script>
+  </body>
+</html>
